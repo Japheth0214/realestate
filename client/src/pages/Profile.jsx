@@ -164,7 +164,8 @@ export default function Profile() {
           id='email'
           defaultValue={currentUser.email}
           className='border p-3 rounded-lg'
-          onChange={handleChange}
+          readOnly
+          style={{ pointerEvents: 'none' }}
         />
         <input
           type='password'
@@ -177,7 +178,7 @@ export default function Profile() {
           disabled={loading}
           className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
         >
-          {loading ? 'Loading...' : 'Update'}
+          {loading ? 'Updating...' : 'Update'}
         </button>
       </form>
       <div className='flex justify-between mt-5'>

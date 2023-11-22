@@ -49,7 +49,6 @@ export default function Contact({ listing }) {
          <a
            href={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${encodeURIComponent(message)}`}
            onClick={handleSendMessage}
-           target="_blank" rel="noopener noreferrer"
            className='bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95'
          >
             Send Message

@@ -23,12 +23,18 @@ export default function Contact({ listing }) {
     fetchLandlord();
   }, [listing.userRef]);
 
-   const handleSendMessage = () => {
+    const handleSendMessage = () => {
+    if (message.trim() === '') {
+
+      return;
+    }
+
     setMessageSent(true);
     setMessage('');
     setTimeout(() => {
-    setMessageSent(false);
+      setMessageSent(false);
     }, 3000);
+
   };
 
   return (
@@ -51,13 +57,13 @@ export default function Contact({ listing }) {
           ></textarea>
 
          <a
-           href={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${encodeURIComponent(message)}`}
+           href={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${message}`}
            onClick={handleSendMessage}
            className='bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95'
          >
             Send Message
           </a>
-           {isMessageSent && <p>Message sent successfully!</p>}
+           {isMessageSent && message.trim() !== '' && <p>Message sent successfully!</p>}
         </div>
       )}
     </>

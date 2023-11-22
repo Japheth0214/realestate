@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function Contact({ listing }) {
   const [landlord, setLandlord] = useState(null);
   const [message, setMessage] = useState('');
-  const [isMessageSent, setMessageSent] = useState(false);
-
   const onChange = (e) => {
     setMessage(e.target.value);
   };
@@ -22,21 +21,6 @@ export default function Contact({ listing }) {
     };
     fetchLandlord();
   }, [listing.userRef]);
-
-    const handleSendMessage = () => {
-    if (message.trim() === '') {
-
-      return;
-    }
-
-    setMessageSent(true);
-    setMessage('');
-    setTimeout(() => {
-      setMessageSent(false);
-    }, 3000);
-
-  };
-
   return (
     <>
       {landlord && (
@@ -56,14 +40,12 @@ export default function Contact({ listing }) {
             className='w-full border p-3 rounded-lg'
           ></textarea>
 
-         <a
-           href={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${message}`}
-           onClick={handleSendMessage}
-           className='bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95'
-         >
+          <Link
+          to={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${message}`}
+          className='bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95'
+          >
             Send Message
-          </a>
-           {isMessageSent && message.trim() !== '' && <p>Message sent successfully!</p>}
+          </Link>
         </div>
       )}
     </>

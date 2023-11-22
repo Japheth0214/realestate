@@ -26,7 +26,11 @@ export default function Contact({ listing }) {
    const handleSendMessage = () => {
     setMessageSent(true);
     setMessage('');
+    setTimeout(() => {
+    setMessageSent(false);
+    }, 3000);
   };
+
   return (
     <>
       {landlord && (

@@ -29,35 +29,36 @@ const Contact = ({ listing }) => {
     fetchLandlord();
   }, [listing.userRef]);
 
-  const handleSendMessage = async () => {
-    try {
-      const res = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          to: landlord.email,
-          subject: `Regarding ${listing.name}`,
-          body: message,
-        }),
-      });
+const handleSendMessage = async () => {
+  try {
+    const res = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'user@example.com', // The user's email
+        to: landlord.email,
+        subject: `Regarding ${listing.name}`,
+        body: message,
+      }),
+    });
 
-      const result = await res.json();
+    const result = await res.json();
 
-      if (result.success) {
-        console.log('Email sent successfully');
-        setMessage('');
-        alert('Email sent successfully!');
-      } else {
-        console.error('Failed to send email:', result.message);
-        alert('Failed to send email. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error sending email:', error.message);
-      alert('An error occurred while sending the email. Please try again.');
+    if (result.success) {
+      console.log('Email sent successfully');
+      setMessage('');
+      alert('Email sent successfully!');
+    } else {
+      console.error('Failed to send email:', result.message);
+      alert('Failed to send email. Please try again.');
     }
-  };
+  } catch (error) {
+    console.error('Error sending email:', error.message);
+    alert('An error occurred while sending the email. Please try again.');
+  }
+};
 
   return (
     <>

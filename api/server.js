@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 app.post('/api/send-email', async (req, res) => {
-  const { to, subject, body } = req.body;
+  const { from, to, subject, body } = req.body;
 
   try {
     const transporter = nodemailer.createTransport({
@@ -23,7 +23,7 @@ app.post('/api/send-email', async (req, res) => {
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from,
       to,
       subject,
       text: body,

@@ -8,7 +8,6 @@ export default function Contact({ listing }) {
   const onChange = (e) => {
     setMessage(e.target.value);
   };
-
   useEffect(() => {
     const fetchLandlord = async () => {
       try {
@@ -46,12 +45,11 @@ export default function Contact({ listing }) {
           >
             Send Message
           </Link>
-        </div>
+       </div>
       )}
     </>
   );
 }
-
 Contact.propTypes = {
   listing: PropTypes.shape({
     userRef: PropTypes.string.isRequired,

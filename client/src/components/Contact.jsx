@@ -5,11 +5,9 @@ import PropTypes from 'prop-types';
 export default function Contact({ listing }) {
   const [landlord, setLandlord] = useState(null);
   const [message, setMessage] = useState('');
-
   const onChange = (e) => {
     setMessage(e.target.value);
   };
-
   useEffect(() => {
     const fetchLandlord = async () => {
       try {
@@ -17,17 +15,11 @@ export default function Contact({ listing }) {
         const data = await res.json();
         setLandlord(data);
       } catch (error) {
-        console.error('Error fetching landlord:', error);
+        console.log(error);
       }
     };
-
     fetchLandlord();
   }, [listing.userRef]);
-
-  const emailLink = landlord
-    ? `mailto:${landlord.email}?subject=Regarding ${encodeURIComponent(listing.name)}&body=${encodeURIComponent(message)}`
-    : '';
-
   return (
     <>
       {landlord && (
@@ -47,20 +39,17 @@ export default function Contact({ listing }) {
             className='w-full border p-3 rounded-lg'
           ></textarea>
 
-          {landlord.email && (
-            <Link
-              to={emailLink}
-              className='bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95'
-            >
-              Send Message
-            </Link>
-          )}
+          <Link
+          to={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${message}`}
+          className='bg-slate-700 text-white text-center p-3 uppercase rounded-lg hover:opacity-95'
+          >
+            Send Message
+          </Link>
         </div>
       )}
     </>
   );
 }
-
 Contact.propTypes = {
   listing: PropTypes.shape({
     userRef: PropTypes.string.isRequired,
